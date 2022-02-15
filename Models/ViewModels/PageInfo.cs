@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace MissionAssignment7.Models.ViewModels
 {
+    // this is a page information class
     public class PageInfo
     {
         public int TotalNumBooks { get; set; }

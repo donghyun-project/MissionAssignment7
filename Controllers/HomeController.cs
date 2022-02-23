@@ -19,7 +19,7 @@ namespace MissionAssignment7.Controllers
         }
 
         // index view page with book data
-        public IActionResult Index(int pageNum = 1)
+        public IActionResult Index(string category, int pageNum = 1)
         {
             int pageSize = 10;
 
@@ -27,14 +27,18 @@ namespace MissionAssignment7.Controllers
             var x = new BooksViewModel
             {
                 Books = repo.Books
-                    .OrderBy(pageNum => pageNum.Title)
+                    .Where(b => b.Category == category || category == null)
+                    .OrderBy(b => b.Title)
                      .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
 
                 // page information
                 PageInfo = new PageInfo
                 {
-                    TotalNumBooks = repo.Books.Count(),
+                    TotalNumBooks = 
+                        (category == null
+                        ? repo.Books.Count()
+                        : repo.Books.Where(x => x.Category == category).Count()),
                     BooksPerPage = pageSize,
                     CurrentPage = pageNum
                 }

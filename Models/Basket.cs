@@ -46,6 +46,13 @@ namespace MissionAssignment7.Models
 
             return sum;
         }
+
+        public int CalculateQuantity()
+        {
+            int sum = Items.Sum(x => x.Quantity);
+
+            return sum;
+        }
     }
 
 

@@ -9,31 +9,32 @@
 
     <thead>
         <tr>
+            <td colspan="1"><i class="fa fa-shopping-cart"></i> Summary:</td>
+            <td colspan="1">@Model.basket.CalculateQuantity().ToString()</td>
+            <td colspan="1"></td>
+            <td>@Model.basket.CalculateTotal().ToString("c")</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
             <th>Item</th>
             <th>Quantity</th>
             <th>Price</th>
             <th>Subtotal</th>
         </tr>
+    </tbody>
 
-    </thead>
-
-    <tbody>
+    <tfoot>
         @foreach (var i in Model.basket.Items)
         {
             <tr>
                 <td>@i.Book.Title</td>
                 <td>@i.Quantity</td>
                 <td>@i.Book.Price</td>
-                <td>@(i.Quantity * i.Book.Price)</td>
+                <td>@((i.Quantity * i.Book.Price).ToString("c"))</td>
             </tr>
         }
-    </tbody>
-
-    <tfoot>
-        <tr>
-            <td colspan="3">Total:</td>
-            <td>@Model.basket.CalculateTotal().ToString("c")</td>
-        </tr>
     </tfoot>
 </table>
 

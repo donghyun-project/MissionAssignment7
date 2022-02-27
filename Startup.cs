@@ -35,11 +35,15 @@ namespace MissionAssignment7
 
             // Each Http request gets each repository objects
             services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
+            services.AddScoped<IPurchaseRepository, EFPurchaseRepository>();
 
             services.AddRazorPages();
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            services.AddScoped<Basket>(x => SessionBasket.GetBasket(x));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,8 +54,9 @@ namespace MissionAssignment7
                 app.UseDeveloperExceptionPage();
             }
 
+            // Corresponds to the wwwroot
             app.UseStaticFiles();
-            app.UseSession();
+            app.UseSession(); // session can store int, string, byte but we want to store basket so twe are going to create json file
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

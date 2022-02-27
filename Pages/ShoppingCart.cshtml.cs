@@ -11,25 +11,25 @@ namespace MissionAssignment7.Pages
 {
     public class ShoppingCartModel : PageModel
     {
+        // this is repo
         private IBookstoreRepository repo { get; set; }
-
-        // this is shopping cart model
-        public ShoppingCartModel(IBookstoreRepository temp)
-        {
-            repo = temp;
-        }
-
         // this is basket
         public Basket basket { get; set; }
-
         // this is return URL
         public string ReturnUrl { get; set; }
+
+        // this is shopping cart model
+        public ShoppingCartModel(IBookstoreRepository temp, Basket b)
+        {
+            repo = temp;
+            basket = b;
+        }
         
         // function to get return url and store into basket
         public void OnGet(string returnUrl)
         {
             ReturnUrl = returnUrl ?? "/";
-            basket = HttpContext.Session.GetJson<Basket>("basket") ?? new Basket(); ;
+            // basket = HttpContext.Session.GetJson<Basket>("basket") ?? new Basket(); ;
         }
 
         // returning to the book list
@@ -38,10 +38,17 @@ namespace MissionAssignment7.Pages
             Book b = repo.Books.FirstOrDefault(x => x.BookId == bookId);
 
             // ?? null-coalescing operator
-            basket = HttpContext.Session.GetJson<Basket>("basket") ?? new Basket();
+            // basket = HttpContext.Session.GetJson<Basket>("basket") ?? new Basket();
             basket.AddItem(b, 1);
 
-            HttpContext.Session.SetJson("basket", basket);
+            // HttpContext.Session.SetJson("basket", basket);
+
+            return RedirectToPage(new { ReturnUrl = returnUrl });
+        }
+
+        public IActionResult OnPostRemove(int bookId, string returnUrl)
+        {
+            basket.RemoveItem(basket.Items.First(x => x.Book.BookId == bookId).Book);
 
             return RedirectToPage(new { ReturnUrl = returnUrl });
         }

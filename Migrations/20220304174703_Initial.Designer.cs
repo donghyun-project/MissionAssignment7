@@ -9,8 +9,8 @@ using MissionAssignment7.Models;
 namespace MissionAssignment7.Migrations
 {
     [DbContext(typeof(BookstoreContext))]
-    [Migration("20220227021547_initial")]
-    partial class initial
+    [Migration("20220304174703_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,6 +70,7 @@ namespace MissionAssignment7.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("BookId");
@@ -107,6 +108,9 @@ namespace MissionAssignment7.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("PurchaseReceived")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("State")
                         .IsRequired()

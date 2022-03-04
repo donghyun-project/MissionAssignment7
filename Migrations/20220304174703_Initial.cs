@@ -2,7 +2,7 @@
 
 namespace MissionAssignment7.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace MissionAssignment7.Migrations
             //    {
             //        BookId = table.Column<long>(nullable: false)
             //            .Annotation("Sqlite:Autoincrement", true),
-            //        Title = table.Column<string>(nullable: true),
+            //        Title = table.Column<string>(nullable: false),
             //        Author = table.Column<string>(nullable: true),
             //        Publisher = table.Column<string>(nullable: true),
             //        Isbn = table.Column<string>(nullable: true),
@@ -40,7 +40,8 @@ namespace MissionAssignment7.Migrations
                     State = table.Column<string>(nullable: false),
                     Zip = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: false),
-                    Anonymous = table.Column<bool>(nullable: false)
+                    Anonymous = table.Column<bool>(nullable: false),
+                    PurchaseReceived = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

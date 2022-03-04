@@ -44,6 +44,8 @@ namespace MissionAssignment7
 
             services.AddScoped<Basket>(x => SessionBasket.GetBasket(x));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddServerSideBlazor(); // enables to use blazer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,6 +82,9 @@ namespace MissionAssignment7
                 endpoints.MapDefaultControllerRoute();
 
                 endpoints.MapRazorPages();
+
+                endpoints.MapBlazorHub(); // refer to as a middleware
+                endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index"); // If you don't get anything from 1st, go to 2nd
             });
         }
     }

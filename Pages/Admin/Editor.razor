@@ -65,14 +65,12 @@
         <InputNumber class="form-control" @bind-Value="b.PageCount"></InputNumber>
     </div>
 
-    <div class="form-group">
-        <label>Price:</label>
+    <div class="input-group">
         <ValidationMessage For="@(() => b.Price)"></ValidationMessage>
-        <InputNumber class="form-control" @bind-Value="b.Price"></InputNumber>
+        <span class="input-group-text">$</span>
+        <span class="input-group-text">0.00</span>
+        <InputNumber class="form-control" @bind-Value="@b.Price"></InputNumber>
     </div>
-
-
-
 
     <button type="submit" class="btn btn-@ThemeColor">Save</button>
     <NavLink class="btn btn-secondary" href="/admin/books">Cancel</NavLink>

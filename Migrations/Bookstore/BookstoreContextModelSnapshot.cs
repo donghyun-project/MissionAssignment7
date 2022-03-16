@@ -2,17 +2,15 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MissionAssignment7.Models;
 
-namespace MissionAssignment7.Migrations
+namespace MissionAssignment7.Migrations.Bookstore
 {
     [DbContext(typeof(BookstoreContext))]
-    [Migration("20220304174703_Initial")]
-    partial class Initial
+    partial class BookstoreContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

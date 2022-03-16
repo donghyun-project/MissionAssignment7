@@ -1,6 +1,10 @@
 ﻿@page "/admin"
 
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
 @model MissionAssignment7.Pages.Admin.IndexModel
+
 @{
 }
 
@@ -26,6 +30,12 @@
         </figcaption>
     </figure>
 
+    <!--additional bootstrap mission assignment 11-->
+    <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+        <div class="container text-center">
+            <small>Copyright &copy; Bookstore Admin</small>
+        </div>
+    </footer>
     <script src="/_framework/blazor.server.js"></script>
 </body>
 </html>

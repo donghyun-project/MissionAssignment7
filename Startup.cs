@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +34,15 @@ namespace MissionAssignment7
                 options.UseSqlite(Configuration["ConnectionStrings:BookDBConnection"]);
             });
 
+            // Add Identity Connection
+            services.AddDbContext<AppIdentityDBContext>(options =>
+            {
+                options.UseSqlite(Configuration.GetConnectionString("IdentityConnection"));
+            });
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDBContext>();
+
             // Each Http request gets each repository objects
             services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
             services.AddScoped<IPurchaseRepository, EFPurchaseRepository>();
@@ -55,11 +65,21 @@ namespace MissionAssignment7
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
 
+            app.UseHttpsRedirection();
             // Corresponds to the wwwroot
             app.UseStaticFiles();
             app.UseSession(); // session can store int, string, byte but we want to store basket so twe are going to create json file
             app.UseRouting();
+
+            // Enable authentication and authorization  
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -79,15 +99,16 @@ namespace MissionAssignment7
                     new { Controller = "Home", action = "Index", pageNum = 1 }
                 );
 
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller = Home}/{action = Index}/{id?}");
+                endpoints.MapDefaultControllerRoute();
 
                 endpoints.MapRazorPages();
 
                 endpoints.MapBlazorHub(); // refer to as a middleware
                 endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index"); // If you don't get anything from 1st, go to 2nd
             });
+
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
+

@@ -29,6 +29,7 @@ namespace MissionAssignment7.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel loginModel)
         {
+            // Checks if the user is valid
             if (ModelState.IsValid)
             {
                 IdentityUser user = await userManager.FindByNameAsync(loginModel.Username);
@@ -48,6 +49,7 @@ namespace MissionAssignment7.Controllers
             return View(loginModel);
         }
 
+        // logout function
         public async Task<RedirectResult> Logout(string returnUrl = "/")
         {
             await signInManager.SignOutAsync();

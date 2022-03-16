@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MissionAssignment7.Models.ViewModels
 {
+    // login Model for Admin Login page
     public class LoginModel
     {
         [Required]

@@ -40,6 +40,7 @@ namespace MissionAssignment7
                 options.UseSqlite(Configuration.GetConnectionString("IdentityConnection"));
             });
 
+            // Setting up Identity User and Role
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDBContext>();
 
@@ -99,6 +100,7 @@ namespace MissionAssignment7
                     new { Controller = "Home", action = "Index", pageNum = 1 }
                 );
 
+                // default route
                 endpoints.MapDefaultControllerRoute();
 
                 endpoints.MapRazorPages();

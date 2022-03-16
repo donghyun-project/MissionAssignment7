@@ -11,6 +11,7 @@ namespace MissionAssignment7.Models
 {
     public static class IdentitySeedData
     {
+        // Admin Username and Password
         private const string adminUser = "Admin";
         private const string adminPassword = "413ExtraYeetPeriod(t)!";
 
@@ -31,6 +32,7 @@ namespace MissionAssignment7.Models
 
             IdentityUser user = await userManager.FindByIdAsync(adminUser);
 
+            // Admin info
             if (user == null)
             {
                 user = new IdentityUser(adminUser);
